@@ -25,14 +25,14 @@ const Destroy = catchError(async(req, res) =>{
     const {id} = req.params
     const result = await Movie.destroy({where: {id}})
     if (!result) return res.status(404).json(result)
-        return res.json(result)
+        return res.sendStatus(204)
 });
 
 const Update = catchError(async(req, res) => {
     const {id} = req.params
-    const result = await Movie.update(req.body, {where: {id}})
+    const result = await Movie.update(req.body, {where: {id}, returning: true})
     if (result[0]===0) return res.status(304).json(result)
-        return res.json(result)
+        return res.json(result[1][0])
 })
 
 // POST -> /movies/:id/genres

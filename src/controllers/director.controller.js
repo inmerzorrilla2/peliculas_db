@@ -22,7 +22,7 @@ const Destroy = catchError(async(req, res) => {
     const {id} = req.params
     const result = await Director.destroy({where: {id}})
     if (!result) return res.status(404).json({msg: `User ${id} not found`})
-        return res.json(result)
+        return res.sendStatus(204)
 });
 
 const Update = catchError(async(req, res) => {
